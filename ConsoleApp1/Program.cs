@@ -2,40 +2,81 @@
 
 using Confluent.Kafka;
 using System;
+using Newtonsoft.Json;
 
 class Program
 {
+    private const string BootstrapServers = "localhost:9092";
+    private const string Topic = "LoopCounter";
+    private const string ResponseTopic = "LoopCounterResponse";
+    private const int MaxCounter = 6;
+
     static async Task Main(string[] args)
     {
         // Program execution starts here
         Console.WriteLine("Hello, world!");
 
-        // Rest of your program logic goes here
-
-        // Wait for user input before exiting
-        var config = new ProducerConfig
+        var producerConfig = new ProducerConfig { BootstrapServers = BootstrapServers };
+        var consumerConfig = new ConsumerConfig
         {
-            BootstrapServers = "localhost:9092"
+            BootstrapServers = BootstrapServers,
+            GroupId = Guid.NewGuid().ToString(),
+            AutoOffsetReset = AutoOffsetReset.Earliest
         };
-        string kafkaTopic = "GameAndPlayerStateBeforeAction";
-        string message = $"hw";
 
-        var producer = new ProducerBuilder<Null, string>(config).Build();
-        for (int i = 0; i < 10; i++)
+        var producer = new ProducerBuilder<string, string>(producerConfig).Build();
+        var consumer = new ConsumerBuilder<string, string>(consumerConfig).Build();
+        consumer.Subscribe(ResponseTopic);
+
+        int counter = 1;
+        string programId = Guid.NewGuid().ToString();
+
+        while (counter <= MaxCounter)
         {
-            message += i;
-    
-            try
+            // Produce a message with the counter value
+            var message = new
             {
-                var deliveryReport =
-                    await producer.ProduceAsync(kafkaTopic, new Message<Null, string> { Value = message });
-                Console.WriteLine($"Message delivered to '{deliveryReport.TopicPartitionOffset}'");
-            }
-            catch (ProduceException<Null, string> ex)
+                ProgramID = programId,
+                LoopCounter = counter
+            };
+            
+            // Convert the message object to JSON
+            var messageJson = JsonConvert.SerializeObject(message);
+            
+            var kafkaMessage = new Message<string, string> { Key = null, Value = messageJson };
+            producer.Produce(Topic, kafkaMessage);
+
+            // Wait for the response message from the Python app
+            var response = consumer.Consume();
+            
+            // Deserialize the response JSON
+            var responseMessage = JsonConvert.DeserializeObject<ResponseMessage>(response.Message.Value);
+            
+            // Check if the program ID matches
+            if (responseMessage.ProgramId == programId)
             {
-                Console.WriteLine($"Delivery failed: {ex.Error.Reason}");
+                Console.WriteLine($"Received response: {responseMessage.LoopCounter}");
+
+                // Update the counter value based on the response
+                counter = responseMessage.LoopCounter + 1;
             }
-        }    }
+            else
+            {
+                Console.WriteLine($"Invalid response format: {response.Message.Value}");
+            }
+        }
+
+        producer.Flush();
+        producer.Dispose();
+        consumer.Close();
+
+        Console.WriteLine("Finished");
+    }
+
+    private class ResponseMessage
+    {
+        public string ProgramId { get; set; }
+        public int LoopCounter { get; set; }
+    }
+
 }
-
-

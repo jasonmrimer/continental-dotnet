@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using NUnit.Framework;
+namespace GameTests;
 
 [TestFixture]
 public class AtamaFinderTest
@@ -22,72 +20,72 @@ public class AtamaFinderTest
     Card _cardQuH1 = new(Rank.Queen, Suit.Hearts);
     Card _cardQuH2 = new(Rank.Queen, Suit.Hearts);
 
-    private List<Card> _expectedAtama02s;
-    private List<Card> _expectedAtama08s1;
-    private List<Card> _expectedAtama08s2;
-    private List<Card> _expectedAtama08s3;
-    private List<Card> _expectedAtama08s4;
-    private List<Card> _expectedAtama08s5;
-    private List<Card> _expectedAtamaQus1;
-    private List<Card> _expectedAtamaQus2;
-    private List<Card> _expectedAtamaQus3;
-    private List<Card> _expectedAtamaQus4;
-    private List<Card> _expectedAtamaQus5;
+    private CardList _expectedAtama02s;
+    private CardList _expectedAtama08s1;
+    private CardList _expectedAtama08s2;
+    private CardList _expectedAtama08s3;
+    private CardList _expectedAtama08s4;
+    private CardList _expectedAtama08s5;
+    private CardList _expectedAtamaQus1;
+    private CardList _expectedAtamaQus2;
+    private CardList _expectedAtamaQus3;
+    private CardList _expectedAtamaQus4;
+    private CardList _expectedAtamaQus5;
 
     [SetUp]
     public void SetUp()
     {
-        _expectedAtama02s = new List<Card>()
+        _expectedAtama02s = new CardList()
         {
             _card02C, _card02D, _card02H
         };
 
-        _expectedAtama08s1 = new List<Card>()
+        _expectedAtama08s1 = new CardList()
         {
             _card08C, _card08D, _card08H, _card08S,
         };
         
-        _expectedAtama08s2 = new List<Card>()
+        _expectedAtama08s2 = new CardList()
         {
             _card08C, _card08D, _card08H,
         };
         
-        _expectedAtama08s3 = new List<Card>()
+        _expectedAtama08s3 = new CardList()
         {
             _card08D, _card08H, _card08S,
         };
         
-        _expectedAtama08s4 = new List<Card>()
+        _expectedAtama08s4 = new CardList()
         {
             _card08C, _card08D,  _card08S,
         };
         
-        _expectedAtama08s5 = new List<Card>()
+        _expectedAtama08s5 = new CardList()
         {
             _card08C,  _card08H, _card08S,
         };
 
-        _expectedAtamaQus1 = new List<Card>()
+        _expectedAtamaQus1 = new CardList()
         {
             _cardQuC, _cardQuD, _cardQuH1, 
         };
         
-        _expectedAtamaQus2 = new List<Card>()
+        _expectedAtamaQus2 = new CardList()
         {
             _cardQuC, _cardQuD, _cardQuH2,
         };
         
-        _expectedAtamaQus3 = new List<Card>()
+        _expectedAtamaQus3 = new CardList()
         {
             _cardQuC, _cardQuH1, _cardQuH2,
         };
         
-        _expectedAtamaQus4 = new List<Card>()
+        _expectedAtamaQus4 = new CardList()
         { 
             _cardQuD, _cardQuH1, _cardQuH2,
         };
         
-        _expectedAtamaQus5 = new List<Card>()
+        _expectedAtamaQus5 = new CardList()
         {
             _cardQuC, _cardQuD, _cardQuH1, _cardQuH2,
         };
@@ -96,7 +94,7 @@ public class AtamaFinderTest
     [Test]
     public void FindsSimpleAtama()
     {
-        List<Card> hand = new()
+        CardList hand = new()
         {
             _card02C, _card02D, _card02H
         };
@@ -110,7 +108,7 @@ public class AtamaFinderTest
     [Test]
     public void Finds5UniqueAtamaFrom4Cards()
     {
-        List<Card> hand = new()
+        CardList hand = new()
         {
             _card08C, _card08D, _card08H, _card08S
         };
@@ -133,7 +131,7 @@ public class AtamaFinderTest
     [Test]
     public void FindsSimpleAtamaWithDistractions()
     {
-        List<Card> hand = new()
+        CardList hand = new()
         {
             _card02C, _card02D, _card02H, _card08C,
         };
@@ -147,7 +145,7 @@ public class AtamaFinderTest
     [Test]
     public void FindsAtamaFromMultipleRanks()
     { 
-        List<Card> hand = new()
+        CardList hand = new()
         {
             _card02C, _card02D, _card02H, 
             _card08C, _card08D, _card08H, _card08S,
@@ -163,7 +161,7 @@ public class AtamaFinderTest
     [Test]
     public void FindsAtamaWithSameSuitSameRank()
     {
-        List<Card> hand = new()
+        CardList hand = new()
         {
             _cardQuC, _cardQuD, _cardQuH1, _cardQuH2,
         };
@@ -176,6 +174,16 @@ public class AtamaFinderTest
         Assert.Contains(_expectedAtamaQus3, atamaFound);
         Assert.Contains(_expectedAtamaQus4, atamaFound);
         Assert.Contains(_expectedAtamaQus5, atamaFound);
+    }
+    
+    [Test]
+    public void Test_IsAtama()
+    {
+        Atama atamaValid = new Atama(_expectedAtama02s) {TestHelper.Card02C};
+        Atama atamaNotValid = new Atama(_expectedAtama02s) {TestHelper.Card03C};
+        
+        Assert.That(AtamaFinder.IsAtama(atamaValid), Is.True);
+        Assert.That(AtamaFinder.IsAtama(atamaNotValid), Is.False);
     }
         
 }

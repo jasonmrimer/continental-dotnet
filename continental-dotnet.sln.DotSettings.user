@@ -1,10 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=31e8b420_002Dc296_002D499d_002Dbf1e_002Df90d0899756f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;And&gt;
-    &lt;Namespace&gt;GameTests&lt;/Namespace&gt;
-    &lt;Project Location="/Users/engineer/workspace/continental-dotnet/GameTests" Presentation="&amp;lt;GameTests&amp;gt;" /&gt;
-  &lt;/And&gt;
-&lt;/SessionState&gt;</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=335d3e24_002D4093_002D4f67_002D95a6_002D0a8283e449d5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;And&gt;
     &lt;Namespace&gt;GameTests&lt;/Namespace&gt;
@@ -16,12 +11,15 @@
 &lt;/SessionState&gt;</s:String>
 	
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=70caa130_002D5eec_002D4f6b_002Dab86_002D87d7c6dd9c44/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Solution /&gt;
-&lt;/SessionState&gt;</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7d7a394b_002Da2f9_002D4bf3_002Db866_002Dc2f6040941b0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d90bd0a5_002D425b_002D4cfe_002Da20e_002Dbee51b61f39c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AtamaFinderTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::GameTests.AtamaFinderTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>

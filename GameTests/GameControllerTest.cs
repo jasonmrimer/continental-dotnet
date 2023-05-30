@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameRunner;
 using NUnit.Framework;
 
 public class GameControllerTest

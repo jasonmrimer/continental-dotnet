@@ -1,3 +1,5 @@
+using GameRunner;
+
 namespace GameTests;
 
 [TestFixture]

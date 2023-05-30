@@ -1,22 +1,25 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+namespace GameRunner;
 
 public class Dealer
 {
     private readonly List<Player> _players;
     private readonly Deck _deck;
-    private readonly List<Card> _discardPile;
+    private readonly CardList _discardPile;
     private Card _topDiscard;
 
-    public Dealer(Deck deck, List<Player> players)
+    public Dealer()
+    {
+        _deck = new Deck();
+        _players = PlayerStub.CreatePlayers();
+        _topDiscard = null;
+        _discardPile = new CardList();
+        PlayZone = new List<CardList>();
+    }
+        
+    public Dealer(Deck deck, List<Player> players) : this()
     {
         _deck = deck;
         _players = players;
-        _discardPile = new List<Card>();
-        _topDiscard = null;
-        PlayZone = new List<CardList>();
     }
 
     public Card TopDiscard => _topDiscard;

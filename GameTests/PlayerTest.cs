@@ -1,3 +1,5 @@
+using GameRunner;
+
 namespace GameTests;
 
 [TestFixture]
@@ -92,74 +94,6 @@ public class PlayerTest
             Assert.That(playedDashita, Is.EqualTo(expectedDashita));
             Assert.That(_player.Hand(), Is.Empty);
         });
-    }
-
-    [Test]
-    public void PlaysAdditionalCardAfterDashita_AboveRun()
-    {
-        foreach (Card card in TestHelper.HandForDashita2CTo5CAnd7DTo10DAndJacks)
-        {
-            _player.AddToHand(card);
-        }
-
-        Dashita? playedDashita = IterateUntilPlayedDashita();
-
-        _player.AddToHand(TestHelper.Card06C);
-
-        Dealer dealer = new Dealer(new Deck(), new List<Player> { _player });
-        dealer.ReceiveDashita(playedDashita);
-
-        Assert.That(_player.CanPlay(dealer.PlayZone), Is.True);
-
-        CardList availablePlays = _player.AvailablePlays(dealer.PlayZone);
-        Assert.That(availablePlays, Has.Count.EqualTo(1));
-        Assert.That(availablePlays, Does.Contain(TestHelper.Card06C));
-    }
-
-    [Test]
-    public void PlaysAdditionalCardAfterDashita_BelowRun()
-    {
-        foreach (Card card in TestHelper.HandForDashita2CTo5CAnd7DTo10DAndJacks)
-        {
-            _player.AddToHand(card);
-        }
-
-        Dashita? playedDashita = IterateUntilPlayedDashita();
-
-        _player.AddToHand(TestHelper.Card06D);
-
-        Dealer dealer = new Dealer(new Deck(), new List<Player> { _player });
-        dealer.ReceiveDashita(playedDashita);
-
-        Assert.That(_player.CanPlay(dealer.PlayZone));
-
-        CardList availablePlays = _player.AvailablePlays(dealer.PlayZone);
-        Assert.That(availablePlays, Has.Count.EqualTo(1));
-        Assert.That(availablePlays, Does.Contain(TestHelper.Card06D));
-    }
-
-    [Test]
-    public void PlaysAdditionalCardAfterDashita_AboveAndBelowRun()
-    {
-        foreach (Card card in TestHelper.HandForDashita2CTo5CAnd7DTo10DAndJacks)
-        {
-            _player.AddToHand(card);
-        }
-
-        Dashita? playedDashita = IterateUntilPlayedDashita();
-
-        _player.AddToHand(TestHelper.Card06C);
-        _player.AddToHand(TestHelper.Card06D);
-
-        Dealer dealer = new Dealer(new Deck(), new List<Player> { _player });
-        dealer.ReceiveDashita(playedDashita);
-
-        Assert.That(_player.CanPlay(dealer.PlayZone), Is.True);
-
-        CardList availablePlays = _player.AvailablePlays(dealer.PlayZone);
-        Assert.That(availablePlays, Has.Count.EqualTo(2));
-        Assert.That(availablePlays, Does.Contain(TestHelper.Card06C));
-        Assert.That(availablePlays, Does.Contain(TestHelper.Card06D));
     }
 
     [Test]

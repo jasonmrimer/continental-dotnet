@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using NUnit.Framework;
+namespace GameTests;
 
 [TestFixture]
 public class PlayerTest
@@ -16,10 +15,9 @@ public class PlayerTest
     public void PrintHand()
     {
         GivePlayerSmallDisconnectedHand();
-        Assert.AreEqual(
-            "2♣ | 7♦ | Q♥ | A♠ | Jo★",
-            _player.FormatHandForPrint()
-        );
+        Assert.That(
+            _player.FormatHandForPrint(),
+            Is.EqualTo("2♣ | 7♦ | Q♥ | A♠ | Jo★"));
     }
 
     private void GivePlayerSmallDisconnectedHand()
@@ -35,9 +33,9 @@ public class PlayerTest
     public void Discard()
     {
         GivePlayerSmallDisconnectedHand();
-        Assert.AreEqual(5, _player.CardCount());
+        Assert.That(_player.CardCount(), Is.EqualTo(5));
         _player.DiscardFromHand();
-        Assert.AreEqual(4, _player.CardCount());
+        Assert.That(_player.CardCount(), Is.EqualTo(4));
     }
 
     [Test]
@@ -59,9 +57,8 @@ public class PlayerTest
             choiceCount++;
         }
 
-        Assert.Less(
-            choiceCount,
-            100,
+        Assert.That(
+            choiceCount, Is.LessThan(100),
             "Player did not randomly select both within 100 tries--unlikely result indicative of failure"
         );
     }
@@ -71,7 +68,7 @@ public class PlayerTest
     {
         GivePlayerSmallDisconnectedHand();
         _player.DiscardFromHand();
-        Assert.AreEqual(4, _player.CardCount());
+        Assert.That(_player.CardCount(), Is.EqualTo(4));
     }
 
     [Test]
@@ -88,50 +85,81 @@ public class PlayerTest
             TestHelper.AtamaJacksHHS
         );
 
-
-        int choiceCount = 0;
-        Dashita playedDashita = null;
-        while (playedDashita == null && choiceCount < 100)
+        Dashita? playedDashita = IterateUntilPlayedDashita();
+        Assert.Multiple(() =>
         {
-            playedDashita = _player.PlayDecision();
-            choiceCount++;
-        }
-
-        Assert.IsTrue(_player.HasPlayedDashita);
-        Assert.AreEqual(
-            expectedDashita,
-            playedDashita
-        );
-
-        Assert.IsEmpty(_player.Hand());
+            Assert.That(_player.HasPlayedDashita);
+            Assert.That(playedDashita, Is.EqualTo(expectedDashita));
+            Assert.That(_player.Hand(), Is.Empty);
+        });
     }
 
     [Test]
-    public void PlaysAdditionalCardAfterDashita()
+    public void PlaysAdditionalCardAfterDashita_AboveRun()
     {
         foreach (Card card in TestHelper.HandForDashita2CTo5CAnd7DTo10DAndJacks)
         {
             _player.AddToHand(card);
         }
 
-        int choiceCount = 0;
-        Dashita playedDashita = null;
-        while (playedDashita == null && choiceCount < 100)
-        {
-            playedDashita = _player.PlayDecision();
-            choiceCount++;
-        }
+        Dashita? playedDashita = IterateUntilPlayedDashita();
 
         _player.AddToHand(TestHelper.Card06C);
 
         Dealer dealer = new Dealer(new Deck(), new List<Player> { _player });
         dealer.ReceiveDashita(playedDashita);
 
-        Assert.IsTrue(_player.CanPlay(dealer.PlayZone));
-        
+        Assert.That(_player.CanPlay(dealer.PlayZone), Is.True);
+
         CardList availablePlays = _player.AvailablePlays(dealer.PlayZone);
-        Assert.AreEqual(1, availablePlays.Count);
-        Assert.Contains(TestHelper.Card06C, availablePlays);
+        Assert.That(availablePlays, Has.Count.EqualTo(1));
+        Assert.That(availablePlays, Does.Contain(TestHelper.Card06C));
+    }
+
+    [Test]
+    public void PlaysAdditionalCardAfterDashita_BelowRun()
+    {
+        foreach (Card card in TestHelper.HandForDashita2CTo5CAnd7DTo10DAndJacks)
+        {
+            _player.AddToHand(card);
+        }
+
+        Dashita? playedDashita = IterateUntilPlayedDashita();
+
+        _player.AddToHand(TestHelper.Card06D);
+
+        Dealer dealer = new Dealer(new Deck(), new List<Player> { _player });
+        dealer.ReceiveDashita(playedDashita);
+
+        Assert.That(_player.CanPlay(dealer.PlayZone));
+
+        CardList availablePlays = _player.AvailablePlays(dealer.PlayZone);
+        Assert.That(availablePlays, Has.Count.EqualTo(1));
+        Assert.That(availablePlays, Does.Contain(TestHelper.Card06D));
+    }
+
+    [Test]
+    public void PlaysAdditionalCardAfterDashita_AboveAndBelowRun()
+    {
+        foreach (Card card in TestHelper.HandForDashita2CTo5CAnd7DTo10DAndJacks)
+        {
+            _player.AddToHand(card);
+        }
+
+        Dashita? playedDashita = IterateUntilPlayedDashita();
+
+        _player.AddToHand(TestHelper.Card06C);
+        _player.AddToHand(TestHelper.Card06D);
+
+        Dealer dealer = new Dealer(new Deck(), new List<Player> { _player });
+        dealer.ReceiveDashita(playedDashita);
+
+        Assert.That(_player.CanPlay(dealer.PlayZone), Is.True);
+
+        CardList availablePlays = _player.AvailablePlays(dealer.PlayZone);
+        Assert.That(availablePlays, Has.Count.EqualTo(2));
+        Assert.That(availablePlays, Does.Contain(TestHelper.Card06C));
+        Assert.That(availablePlays, Does.Contain(TestHelper.Card06D));
     }
 
     [Test]
@@ -151,19 +179,22 @@ public class PlayerTest
             TestHelper.AtamaJacksHHS
         );
 
+        Dashita? playedDashita = IterateUntilPlayedDashita();
 
+        Assert.IsTrue(_player.HasPlayedDashita);
+        Assert.That(playedDashita, Is.EqualTo(expectedDashita));
+    }
+
+    private Dashita? IterateUntilPlayedDashita()
+    {
         int choiceCount = 0;
-        Dashita playedDashita = null;
+        Dashita? playedDashita = null;
         while (playedDashita == null && choiceCount < 100)
         {
             playedDashita = _player.PlayDecision();
             choiceCount++;
         }
 
-        Assert.IsTrue(_player.HasPlayedDashita);
-        Assert.AreEqual(
-            expectedDashita,
-            playedDashita
-        );
+        return playedDashita;
     }
 }

@@ -118,7 +118,7 @@ public class Dealer
         return cardToGive;
     }
 
-    public void ReceiveDashita(Dashita dashita)
+    public void ReceiveDashita(Dashita? dashita)
     {
         foreach (Run run in dashita.Runs)
         {

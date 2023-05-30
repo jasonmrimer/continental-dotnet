@@ -7,6 +7,7 @@ public static class TestHelper
     public static Card Card04C = new(Rank.Four, Suit.Clubs);
     public static Card Card05C = new(Rank.Five, Suit.Clubs);
     public static Card Card06C = new(Rank.Six, Suit.Clubs);
+    public static Card Card06D = new(Rank.Six, Suit.Diamonds);
     public static Card Card07D = new(Rank.Seven, Suit.Diamonds);
     public static Card Card08D = new(Rank.Eight, Suit.Diamonds);
     public static Card Card09D = new(Rank.Nine, Suit.Diamonds);
@@ -31,5 +32,5 @@ public static class TestHelper
     public static Run Run07DTo10D => new() { Card07D, Card08D, Card09D, Card10D, };
     public static Run Run08HtoJaH => new() { Card08H, Card09H, Card10H, CardJaH1 };
     public static Atama AtamaJacksHHS => new() { CardJaH1, CardJaH2, CardJaS, };
-    public static Dashita Dashita02CTo05CAnd07DTo10DAndJacks => new Dashita(Run02CTo05C, Run07DTo10D, AtamaJacksHHS);
+    public static Dashita? Dashita02CTo05CAnd07DTo10DAndJacks => new Dashita(Run02CTo05C, Run07DTo10D, AtamaJacksHHS);
 }

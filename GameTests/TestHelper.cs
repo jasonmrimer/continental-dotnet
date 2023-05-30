@@ -14,6 +14,9 @@ public static class TestHelper
     public static Card Card08D = new(Rank.Eight, Suit.Diamonds);
     public static Card Card09D = new(Rank.Nine, Suit.Diamonds);
     public static Card Card10D = new(Rank.Ten, Suit.Diamonds);
+    public static Card CardJaD = new(Rank.Jack, Suit.Diamonds);
+    public static Card CardQuD = new(Rank.Queen, Suit.Diamonds);
+    public static Card CardKiD = new(Rank.King, Suit.Diamonds);
     public static Card Card08H = new(Rank.Eight, Suit.Hearts);
     public static Card Card09H = new(Rank.Nine, Suit.Hearts);
     public static Card Card10H = new(Rank.Ten, Suit.Hearts);
@@ -32,7 +35,9 @@ public static class TestHelper
 
     public static Run Run02CTo05C => new() { Card02C, Card03C, Card04C, Card05C };
     public static Run Run07DTo10D => new() { Card07D, Card08D, Card09D, Card10D, };
+    public static Run Run10DToKiD => new() { Card10D, CardJaD, CardQuD, CardKiD };
     public static Run Run08HtoJaH => new() { Card08H, Card09H, Card10H, CardJaH1 };
     public static Atama AtamaJacksHHS => new() { CardJaH1, CardJaH2, CardJaS, };
-    public static Dashita? Dashita02CTo05CAnd07DTo10DAndJacks => new Dashita(Run02CTo05C, Run07DTo10D, AtamaJacksHHS);
+    public static Dashita Dashita02CTo05CAnd07DTo10DAndJacks => new(Run02CTo05C, Run07DTo10D, AtamaJacksHHS);
+    public static Dashita Dashita02CTo05CAnd10DToKiDAndJacks => new(Run02CTo05C, Run10DToKiD, AtamaJacksHHS);
 }

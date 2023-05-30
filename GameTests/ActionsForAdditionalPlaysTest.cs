@@ -32,6 +32,32 @@ public class ActionsForAdditionalPlaysTest
     }
     
     [Test]
+    public void PlaysAdditionalCardAfterDashita_TopOfRun()
+    {
+        CardList hand = new CardList() { TestHelper.CardAcD };
+
+        Dealer dealer = new Dealer();
+        dealer.ReceiveDashita(TestHelper.Dashita02CTo05CAnd10DToKiDAndJacks);
+
+        CardList availablePlays = ActionsForAdditionalPlays.AvailablePlays(dealer.PlayZone, hand);
+        Assert.That(availablePlays, Has.Count.EqualTo(1));
+        Assert.That(availablePlays, Does.Contain(TestHelper.CardAcD));
+    }
+    
+    [Test]
+    public void PlaysAdditionalCardAfterDashita_BottomOfRun()
+    {
+        CardList hand = new CardList() { TestHelper.CardAcC };
+
+        Dealer dealer = new Dealer();
+        dealer.ReceiveDashita(TestHelper.Dashita02CTo05CAnd07DTo10DAndJacks);
+
+        CardList availablePlays = ActionsForAdditionalPlays.AvailablePlays(dealer.PlayZone, hand);
+        Assert.That(availablePlays, Has.Count.EqualTo(1));
+        Assert.That(availablePlays, Does.Contain(TestHelper.CardAcC));
+    }
+    
+    [Test]
     public void PlaysAdditionalCardAfterDashita_AboveAndBelowRun()
     {
         CardList hand = new CardList()

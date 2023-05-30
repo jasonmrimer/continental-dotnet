@@ -1,4 +1,53 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=70caa130_002D5eec_002D4f6b_002Dab86_002D87d7c6dd9c44/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2f3730b0_002D9f2c_002D46f9_002Dbd70_002Dab7229d0ac55/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;And&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest&lt;/TestId&gt;
+      &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest.Test_CanCardBeAddedToRun&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.Test_PlayAtEndOfRun&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;Or&gt;
+      &lt;Test&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.Test_PlayAtEndOfRun&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlaysAfterDashita_MultiCardAboveRunAndAtama&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlayAfterDashita_BelowRun&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlayAfterDashita_TopOfRun&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlayAfterDashita_BottomOfRun&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlayAfterDashita_AboveAndBelowRun&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlayAfterDashita_AddToAtama&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.Test_MultiCardAboveRun&lt;/TestId&gt;
+      &lt;/Test&gt;
+      &lt;Nothing /&gt;
+      &lt;Nothing /&gt;
+    &lt;/Or&gt;
+  &lt;/And&gt;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=84dfec50_002D307b_002D4243_002D922a_002Dc83c1aefac04/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8c5b01b3_002D533f_002D48ce_002Dbbaa_002D36ac15f98146/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PlayFinderTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest.Test_CanCardBeAddedToRun&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=de97a826_002D44ea_002D48fd_002Dab8e_002D0f831a6619cf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Atamas/@EntryIndexedValue">True</s:Boolean>
+	
+	</wpf:ResourceDictionary>

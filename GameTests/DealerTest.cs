@@ -1,5 +1,6 @@
-using System.Collections.Generic;
-using NUnit.Framework;
+using GameRunner;
+
+namespace GameTests;
 
 [TestFixture]
 public class DealerTest
@@ -23,9 +24,8 @@ public class DealerTest
     {
         // Todo fix all the equals overrides to allow unique detection again
         // _players.ForEach(AllCardsAndUnique);
-        Assert.AreEqual(
-            63,
-            _deck.CardCount(),
+        Assert.That(
+            _deck.CardCount(), Is.EqualTo(63),
             "There should be 63 cards: 108 - 44 dealt - 1 discard pile."
         );
     }
@@ -33,9 +33,8 @@ public class DealerTest
     [Test]
     public void FacilitatesADiscardPileFromDeal()
     {
-        Assert.AreEqual(
-            0,
-            _dealer.PileCardCount(),
+        Assert.That(
+            _dealer.PileCardCount(), Is.EqualTo(0),
             "After dealing, the unavailable discard pile should be empty"
         );
         Assert.NotNull(
@@ -61,14 +60,8 @@ public class DealerTest
 
         Assert.NotNull(drawnCard);
         Assert.Null(_dealer.TopDiscard);
-        Assert.AreEqual(
-            startingDeckCount - 1,
-            _dealer.DeckCardCount()
-        );
-        Assert.AreEqual(
-            startingPileCount + 1,
-            _dealer.PileCardCount()
-        );
+        Assert.That(_dealer.DeckCardCount(), Is.EqualTo(startingDeckCount - 1));
+        Assert.That(_dealer.PileCardCount(), Is.EqualTo(startingPileCount + 1));
     }
 
     [Test]
@@ -81,16 +74,10 @@ public class DealerTest
 
         Card drawnCard = _dealer.GiveCardFrom(DrawSource.Pile);
 
-        Assert.AreSame(topDiscard, drawnCard);
+        Assert.That(drawnCard, Is.SameAs(topDiscard));
         Assert.Null(_dealer.TopDiscard);
-        Assert.AreEqual(
-            startingDeckCount,
-            _dealer.DeckCardCount()
-        );
-        Assert.AreEqual(
-            startingPileCount,
-            _dealer.PileCardCount()
-        );
+        Assert.That(_dealer.DeckCardCount(), Is.EqualTo(startingDeckCount));
+        Assert.That(_dealer.PileCardCount(), Is.EqualTo(startingPileCount));
     }
 
     [Test]
@@ -104,30 +91,27 @@ public class DealerTest
 
         _dealer.ReceiveDiscardFromPlayer(discard);
 
-        Assert.AreEqual(
-            startingPileCount + 1,
-            _dealer.PileCardCount(),
+        Assert.That(
+            _dealer.PileCardCount(), Is.EqualTo(startingPileCount + 1),
             "Did not add to discard pile"
         );
-        
-        Assert.AreNotSame(
-            startingTopCard,
-            _dealer.TopDiscard,
+
+        Assert.That(
+            _dealer.TopDiscard, Is.Not.SameAs(startingTopCard),
             "Did not switch top cards"
         );
-        
-        Assert.AreSame(
-            discard,
-            _dealer.TopDiscard,
+
+        Assert.That(
+            _dealer.TopDiscard, Is.SameAs(discard),
             "Did not place new discard on top"
         );
     }
-    
+
     [Test]
     public void ReceivesDashitaFromPlayerAndAddsToPlayZone()
     {
         _dealer.ReceiveDashita(TestHelper.Dashita02CTo05CAnd07DTo10DAndJacks);
-        
+
         Assert.Contains(TestHelper.Run02CTo05C, _dealer.PlayZone);
         Assert.Contains(TestHelper.Run07DTo10D, _dealer.PlayZone);
         Assert.Contains(TestHelper.AtamaJacksHHS, _dealer.PlayZone);

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using GameRunner;
 using NUnit.Framework;
 
 public class GameControllerTest
 {
     [Test]
+    [Ignore("unity")]
     public void Play1000TurnsOrUntilDiscardPileEmpty()
     {
         List<Player> players = PlayerStub.CreatePlayers();

@@ -69,4 +69,10 @@ public class AtamaFinder
 
         return rankGroups;
     }
+
+    public static bool IsAtama(CardList cards)
+    {
+        Rank firstRank = cards.First().Rank;
+        return cards.All(card => card.Rank == firstRank);
+    }
 }

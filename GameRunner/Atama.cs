@@ -7,6 +7,11 @@ public class Atama : CardList
         AddRange(orderBy);
     }
 
+    public Atama(CardList cardList)
+    {
+        AddRange(cardList);
+    }
+        
     public Atama()
     {
         

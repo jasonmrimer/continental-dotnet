@@ -84,19 +84,19 @@ public class Player
         return ChooseDrawSource(true) == DrawSource.Pile;
     }
 
-    public Dashita PlayDecision()
+    public Dashita? PlayDecision()
     {
         if (!DecidesToPlayAtRandom()) return null;
 
         HasPlayedDashita = true;
         HashSet<Dashita> dashitaOptions = DashitaGenerator.GenerateOptions(Hand());
-        Dashita chosenDashita = new List<Dashita>(dashitaOptions)[0];
+        Dashita? chosenDashita = new List<Dashita?>(dashitaOptions)[0];
         RemoveDashita(chosenDashita);
 
         return chosenDashita;
     }
 
-    private void RemoveDashita(Dashita dashita)
+    private void RemoveDashita(Dashita? dashita)
     {
         foreach (Run run in dashita.Runs)
         {

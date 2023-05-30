@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 [TestFixture]
 public class RunFinderTest
 {
-    private Card _cardAcC;
-    private Card _card06C;
     private Card _card08C;
     private Card _card09C;
     private Card _card10C;
@@ -41,8 +40,6 @@ public class RunFinderTest
     [SetUp]
     public void SetUp()
     {
-        _cardAcC = new Card(Rank.Ace, Suit.Clubs);
-        _card06C = new Card(Rank.Six, Suit.Clubs);
         _card08C = new Card(Rank.Eight, Suit.Clubs);
         _card09C = new Card(Rank.Nine, Suit.Clubs);
         _card10C = new Card(Rank.Ten, Suit.Clubs);
@@ -63,12 +60,12 @@ public class RunFinderTest
 
         _expectedRun3Cto6C = new List<Card>()
         {
-            TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, _card06C
+            TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, TestHelper.Card06C
         };
 
         _expectedRun2Cto6C = new List<Card>()
         {
-            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, _card06C
+            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, TestHelper.Card06C
         };
 
         _expectedRun8CtoJaC = new List<Card>()
@@ -89,19 +86,23 @@ public class RunFinderTest
 
         _expectedRunAcCto04C = new List<Card>()
         {
-            _cardAcC, TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C
+            TestHelper.CardAcC, TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C
         };
 
 
         _expectedRunAcCto05C = new List<Card>()
         {
-            _cardAcC, TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C
+            TestHelper.CardAcC, 
+            TestHelper.Card02C, 
+            TestHelper.Card03C, 
+            TestHelper.Card04C, 
+            TestHelper.Card05C
         };
 
 
         _expectedRunJaCtoAcC = new List<Card>()
         {
-            _cardJaC, _cardQuC, _cardKiC, _cardAcC
+            _cardJaC, _cardQuC, _cardKiC, TestHelper.CardAcC
         };
 
         _expectedRun3Hto6H = new List<Card>()
@@ -126,35 +127,35 @@ public class RunFinderTest
     }
 
     [Test]
-    public void FindsSimpleRun()
+    public void SingleRunWithNoExtraCards()
     {
         CardList cards = new CardList()
         {
-            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, 
+            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C,
         };
 
 
         List<Run> actualRuns = RunFinder.FindPossibleRuns(cards);
 
-        Assert.AreEqual(1, actualRuns.Count);
-        Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
+        Assert.That(actualRuns, Does.Contain(TestHelper.Run02CTo05C));
+        Assert.That(actualRuns, Has.Count.EqualTo(1));
     }
-    
+
     [Test]
     public void Finds3AvailableRuns()
     {
         CardList cards = new CardList()
         {
-            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, _card06C
+            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, TestHelper.Card06C
         };
 
 
         List<Run> actualRuns = RunFinder.FindPossibleRuns(cards);
 
-        Assert.AreEqual(3, actualRuns.Count);
         Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
         Assert.Contains(_expectedRun3Cto6C, actualRuns);
         Assert.Contains(_expectedRun2Cto6C, actualRuns);
+        Assert.That(actualRuns.Count, Is.EqualTo(3));
     }
 
     [Test]
@@ -162,17 +163,17 @@ public class RunFinderTest
     {
         CardList cards = new()
         {
-            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, _card06C,
+            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, TestHelper.Card06C,
             new Card(Rank.Two, Suit.Hearts), new Card(Rank.Queen, Suit.Diamonds),
         };
 
 
         List<Run> actualRuns = RunFinder.FindPossibleRuns(cards);
 
-        Assert.AreEqual(3, actualRuns.Count);
         Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
         Assert.Contains(_expectedRun3Cto6C, actualRuns);
         Assert.Contains(_expectedRun2Cto6C, actualRuns);
+        Assert.That(actualRuns.Count, Is.EqualTo(3));
     }
 
     [Test]
@@ -182,7 +183,7 @@ public class RunFinderTest
         Card cardQuD = new Card(Rank.Queen, Suit.Diamonds);
         CardList cards = new()
         {
-            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, _card06C,
+            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, TestHelper.Card06C,
             card02H, cardQuD,
             _card08C, _card09C, _card10C, _cardJaC,
         };
@@ -190,11 +191,11 @@ public class RunFinderTest
 
         List<Run> actualRuns = RunFinder.FindPossibleRuns(cards);
 
-        Assert.AreEqual(4, actualRuns.Count);
         Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
         Assert.Contains(_expectedRun3Cto6C, actualRuns);
         Assert.Contains(_expectedRun2Cto6C, actualRuns);
         Assert.Contains(_expectedRun8CtoJaC, actualRuns);
+        Assert.That(actualRuns.Count, Is.EqualTo(4));
     }
 
     [Test]
@@ -202,7 +203,7 @@ public class RunFinderTest
     {
         CardList cards = new()
         {
-            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, _card06C,
+            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, TestHelper.Card06C,
             new Card(Rank.Two, Suit.Hearts), new Card(Rank.Queen, Suit.Diamonds),
             _card08C, _card09C, _card10C, _cardJaC, _cardQuC
         };
@@ -210,13 +211,13 @@ public class RunFinderTest
 
         List<Run> actualRuns = RunFinder.FindPossibleRuns(cards);
 
-        Assert.AreEqual(6, actualRuns.Count);
         Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
         Assert.Contains(_expectedRun3Cto6C, actualRuns);
         Assert.Contains(_expectedRun2Cto6C, actualRuns);
         Assert.Contains(_expectedRun8CtoJaC, actualRuns);
         Assert.Contains(_expectedRun9CtoQuC, actualRuns);
         Assert.Contains(_expectedRun8CtoQuC, actualRuns);
+        Assert.That(actualRuns, Has.Count.EqualTo(6));
     }
 
     [Test]
@@ -224,7 +225,7 @@ public class RunFinderTest
     {
         CardList cards = new()
         {
-            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, _card06C,
+            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, TestHelper.Card06C,
             new Card(Rank.Two, Suit.Diamonds), new Card(Rank.Queen, Suit.Diamonds),
             _card08C, _card09C, _card10C, _cardJaC, _cardQuC,
             _card03H, _card04H, _card05H, _card06H,
@@ -234,7 +235,6 @@ public class RunFinderTest
 
         List<Run> actualRuns = RunFinder.FindPossibleRuns(cards);
 
-        Assert.AreEqual(10, actualRuns.Count);
         Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
         Assert.Contains(_expectedRun3Cto6C, actualRuns);
         Assert.Contains(_expectedRun2Cto6C, actualRuns);
@@ -246,6 +246,7 @@ public class RunFinderTest
         Assert.Contains(_expectedRun8HtoJaH, actualRuns);
         Assert.Contains(_expectedRun9HtoQuH, actualRuns);
         Assert.Contains(_expectedRun8HtoQuH, actualRuns);
+        Assert.That(actualRuns, Has.Count.EqualTo(10));
     }
 
 
@@ -254,8 +255,8 @@ public class RunFinderTest
     {
         CardList cards = new()
         {
-            _cardAcC, TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C,
-            _cardJaC, _cardQuC,_cardKiC,
+            TestHelper.CardAcC, TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C,
+            _cardJaC, _cardQuC, _cardKiC,
             new Card(Rank.Two, Suit.Hearts), new Card(Rank.Queen, Suit.Diamonds),
         };
 
@@ -263,12 +264,12 @@ public class RunFinderTest
         List<Run> actualRuns = RunFinder.FindPossibleRuns(cards);
 
         // Assert.AreEqual(4, actualRuns.Count);
-        Assert.Contains(_expectedRunAcCto04C, actualRuns);
-        Assert.Contains(_expectedRunAcCto05C, actualRuns);
-        Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
-        Assert.Contains(_expectedRunJaCtoAcC, actualRuns);
+        Assert.That(actualRuns, Does.Contain(_expectedRunAcCto04C));
+        Assert.That(actualRuns, Does.Contain(_expectedRunAcCto05C));
+        Assert.That(actualRuns, Does.Contain(TestHelper.Run02CTo05C));
+        Assert.That(actualRuns, Does.Contain(_expectedRunJaCtoAcC));
     }
-    
+
     [Test]
     public void MultipleInSuit()
     {
@@ -281,7 +282,115 @@ public class RunFinderTest
 
         List<Run> actualRuns = RunFinder.FindPossibleRuns(cards);
 
-        Assert.AreEqual(1, actualRuns.Count);
-        Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
+        Assert.That(actualRuns, Does.Contain(TestHelper.Run02CTo05C));
+        Assert.That(actualRuns, Has.Count.EqualTo(1));
+    }
+
+    [Test]
+    public void Test_IsRunAfterAppendToEnd()
+    {
+        CardList run = new Run(TestHelper.Run02CTo05C);
+        CardList runAboveValid = new Run(run) { TestHelper.Card06C };
+        CardList runAboveNotValid = new Run(run) { TestHelper.Card06D };
+
+        Assert.That(RunFinder.IsRun(runAboveValid), Is.True);
+        Assert.That(RunFinder.IsRun(runAboveNotValid), Is.False);
+    }
+
+    [Test]
+    public void Test_IsRunAfterAppendToStart()
+    {
+        CardList runBelowValid = new Run { TestHelper.CardAcC };
+        runBelowValid.AddRange(TestHelper.Run02CTo05C);
+
+        CardList runBelowNotValid = new Run { TestHelper.CardAcD };
+        runBelowNotValid.AddRange(TestHelper.Run02CTo05C);
+
+        Assert.That(RunFinder.IsRun(runBelowValid), Is.True);
+        Assert.That(RunFinder.IsRun(runBelowNotValid), Is.False);
+    }
+
+    [Test]
+    public void Test_CanCardBeAddedToRun()
+    {
+        Assert.That(
+            RunFinder.CanAddToRun(TestHelper.Run07DTo10D, TestHelper.Card06D),
+            Is.True
+        );
+        
+        Assert.That(
+            RunFinder.CanAddToRun(TestHelper.Run02DToKiD, TestHelper.CardAcD),
+            Is.True
+        );
+
+        Assert.That(
+            RunFinder.CanAddToRun(TestHelper.Run07DTo10D, TestHelper.Card06C),
+            Is.False
+        );
+
+        Assert.That(
+            RunFinder.CanAddToRun(TestHelper.Run07DTo10D, TestHelper.Card06C),
+            Is.False
+        );
+    }
+
+    [Test]
+    public void Test_FindAdditionLocation()
+    {
+        Assert.That(
+            RunFinder.FindAdditionLocation(TestHelper.Run07DTo10D, TestHelper.Card06D),
+            Is.EqualTo(RunLocation.Start)
+        );
+
+        Assert.That(
+            RunFinder.FindAdditionLocation(TestHelper.Run07DTo10D, TestHelper.CardJaD),
+            Is.EqualTo(RunLocation.End)
+        );
+
+        Assert.That(
+            RunFinder.FindAdditionLocation(TestHelper.Run07DTo10D, TestHelper.CardQuD),
+            Is.EqualTo(RunLocation.None)
+        );
+
+        Assert.That(
+            RunFinder.FindAdditionLocation(TestHelper.Run02DToKiD, TestHelper.CardAcC),
+            Is.EqualTo(RunLocation.None)
+        );
+
+        Assert.That(
+            RunFinder.FindAdditionLocation(TestHelper.Run02DToKiD, TestHelper.CardAcD),
+            Is.EqualTo(RunLocation.StartOrEnd)
+        );
+    }
+
+    [Test]
+    public void Test_AddCardsToRun()
+    {
+        CardList cardsToAdd = new CardList()
+        {
+            TestHelper.Card06D,
+            TestHelper.CardJaD,
+            TestHelper.CardQuD,
+        };
+
+        Assert.That(
+            RunFinder.AddCardsToRun(TestHelper.Run07DTo10D, cardsToAdd),
+            Is.EqualTo(TestHelper.Run06DToQuD));
+    }
+
+    [Test]
+    public void Test_AddCardsToRunWithNonAdditionCards()
+    {
+        CardList cardsToAdd = new CardList()
+        {
+            TestHelper.Card06D,
+            TestHelper.CardJaD,
+            TestHelper.Card06C,
+        };
+
+        Assert.That(
+            RunFinder.AddCardsToRun(TestHelper.Run07DTo10D, cardsToAdd),
+            Is.EqualTo(TestHelper.Run06DToJaD)
+        );
     }
 }

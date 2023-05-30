@@ -42,40 +42,64 @@ public abstract class RunFinder
         return runOptions;
     }
 
-    public static bool IsRun(CardList suitedAndSortedCards)
+    public static bool IsRun(CardList cards)
     {
-        if (suitedAndSortedCards.Count < 4)
+        if (cards.Count < 4)
         {
             return false;
         }
 
-        // Check if the cards have consecutive ranks, accounting for Aces as both 1 and 14
-        for (int i = 1; i < suitedAndSortedCards.Count; i++)
+        if (!CardsAreSameRank(cards))
         {
-            Rank currentRank = suitedAndSortedCards[i].Rank;
-            Rank previousRank = suitedAndSortedCards[i - 1].Rank;
+            return false;
+        }
 
-            if (previousRank == Rank.Ace)
+
+        // Check if the cards have consecutive ranks, accounting for Aces as both 1 and 14
+        for (int i = 1; i < cards.Count; i++)
+        {
+            Rank currentRank = cards[i].Rank;
+            Rank previousRank = cards[i - 1].Rank;
+
+            switch (previousRank)
             {
-                if (currentRank != Rank.Two)
+                case Rank.Ace:
                 {
-                    return false;
+                    if (currentRank != Rank.Two)
+                    {
+                        return false;
+                    }
+
+                    break;
                 }
-            }
-            else if (previousRank == Rank.King)
-            {
-                // Handle Ace as both 1 and 14
-                if (currentRank != Rank.Ace)
+                case Rank.King:
                 {
-                    return false;
+                    // Handle Ace as both 1 and 14
+                    if (currentRank != Rank.Ace)
+                    {
+                        return false;
+                    }
+
+                    break;
                 }
-            }
-            else if (currentRank != previousRank + 1)
-            {
-                return false;
+                default:
+                {
+                    if (currentRank != previousRank + 1)
+                    {
+                        return false;
+                    }
+
+                    break;
+                }
             }
         }
 
         return true;
+    }
+
+    private static bool CardsAreSameRank(CardList cards)
+    {
+        Suit firstSuit = cards[0].Suit;
+        return cards.All(card => card.Suit == firstSuit);
     }
 }

@@ -130,7 +130,7 @@ public class RunFinderTest
     {
         CardList cards = new CardList()
         {
-            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C, 
+            TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C,
         };
 
 
@@ -139,7 +139,7 @@ public class RunFinderTest
         Assert.AreEqual(1, actualRuns.Count);
         Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
     }
-    
+
     [Test]
     public void Finds3AvailableRuns()
     {
@@ -255,7 +255,7 @@ public class RunFinderTest
         CardList cards = new()
         {
             _cardAcC, TestHelper.Card02C, TestHelper.Card03C, TestHelper.Card04C, TestHelper.Card05C,
-            _cardJaC, _cardQuC,_cardKiC,
+            _cardJaC, _cardQuC, _cardKiC,
             new Card(Rank.Two, Suit.Hearts), new Card(Rank.Queen, Suit.Diamonds),
         };
 
@@ -268,7 +268,7 @@ public class RunFinderTest
         Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
         Assert.Contains(_expectedRunJaCtoAcC, actualRuns);
     }
-    
+
     [Test]
     public void MultipleInSuit()
     {
@@ -283,5 +283,29 @@ public class RunFinderTest
 
         Assert.AreEqual(1, actualRuns.Count);
         Assert.Contains(TestHelper.Run02CTo05C, actualRuns);
+    }
+
+    [Test]
+    public void Test_IsRunAfterAppendToEnd()
+    {
+        CardList run = new Run(TestHelper.Run02CTo05C);
+        CardList runAboveValid = new Run(run) { TestHelper.Card06C };
+        CardList runAboveNotValid = new Run(run) { TestHelper.Card06D };
+
+        Assert.That(RunFinder.IsRun(runAboveValid), Is.True);
+        Assert.That(RunFinder.IsRun(runAboveNotValid), Is.False);
+    }
+
+    [Test]
+    public void Test_IsRunAfterAppendToStart()
+    {
+        CardList runBelowValid = new Run { TestHelper.CardAcC };
+        runBelowValid.AddRange(TestHelper.Run02CTo05C);
+
+        CardList runBelowNotValid = new Run { TestHelper.CardAcD };
+        runBelowNotValid.AddRange(TestHelper.Run02CTo05C);
+
+        Assert.That(RunFinder.IsRun(runBelowValid), Is.True);
+        Assert.That(RunFinder.IsRun(runBelowNotValid), Is.False);
     }
 }

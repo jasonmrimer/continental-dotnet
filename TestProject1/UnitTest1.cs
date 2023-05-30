@@ -20,7 +20,7 @@ public class Tests
             BootstrapServers = "localhost:9092"
         };
 
-        string kafkaTopic = "GameAndPlayerStateBeforeAction";
+        string kafkaTopic = "LoopCounter";
         string message = $"testing";
 
         var producer = new ProducerBuilder<Null, string>(config).Build();

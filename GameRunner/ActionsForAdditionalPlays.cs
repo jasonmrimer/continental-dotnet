@@ -8,6 +8,7 @@ public static class ActionsForAdditionalPlays
     )
     {
         CardList availablePlays = new();
+        
         availablePlays.AddRange(
             from card in cards
             from cardList in playZone
@@ -17,6 +18,20 @@ public static class ActionsForAdditionalPlays
             select card
         );
 
+        foreach (Card card in cards)
+        {
+            foreach (CardList playedList in playZone)
+            {
+                if (playedList.GetType() != typeof(Run)) continue;
+                Run insertAtStart = new Run(playedList);
+                insertAtStart.Insert(0, card);
+                if (RunFinder.IsRun(insertAtStart))
+                {
+                    availablePlays.Add(card);
+                }
+            }
+        }
+        
         return availablePlays;
     }
 }

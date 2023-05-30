@@ -19,7 +19,6 @@ public class ActionsForAdditionalPlaysTest
     }
 
     [Test]
-    [Ignore("should not work but does")]
     public void PlaysAdditionalCardAfterDashita_BelowRun()
     {
         CardList hand = new CardList() { TestHelper.Card06D };

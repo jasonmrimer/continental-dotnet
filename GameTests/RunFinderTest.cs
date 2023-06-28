@@ -308,4 +308,10 @@ public class RunFinderTest
         Assert.That(RunFinder.IsRun(runBelowValid), Is.True);
         Assert.That(RunFinder.IsRun(runBelowNotValid), Is.False);
     }
+    
+    [Test]
+    public void Test_CanAddCardAboveRun()
+    {
+        // todo 
+    }
 }

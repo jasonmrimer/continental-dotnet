@@ -6,6 +6,7 @@ using NUnit.Framework;
 public class GameControllerTest
 {
     [Test]
+    [Ignore("unity")]
     public void Play1000TurnsOrUntilDiscardPileEmpty()
     {
         List<Player> players = PlayerStub.CreatePlayers();

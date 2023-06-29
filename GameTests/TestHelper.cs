@@ -8,6 +8,8 @@ public static class TestHelper
     public static Card Card04C = new(Rank.Four, Suit.Clubs);
     public static Card Card05C = new(Rank.Five, Suit.Clubs);
     public static Card Card06C = new(Rank.Six, Suit.Clubs);
+    public static Card Card07C = new(Rank.Seven, Suit.Clubs);
+    public static Card Card08C = new(Rank.Eight, Suit.Clubs);
     public static Card CardAcD = new(Rank.Ace, Suit.Diamonds);
     public static Card Card06D = new(Rank.Six, Suit.Diamonds);
     public static Card Card07D = new(Rank.Seven, Suit.Diamonds);

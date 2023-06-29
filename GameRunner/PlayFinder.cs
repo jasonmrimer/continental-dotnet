@@ -68,16 +68,82 @@ public static class PlayFinder
         CardList cards,
         List<PlayAction> availablePlays)
     {
-        // todo group and sort cards by suit/rank
         cards.OrderBy(c => c.Rank);
 
-        availablePlays.AddRange(
-            from card in cards
-            from cardList in playZone
-            where cardList.GetType() == typeof(Run)
-            let appendToEnd = new Run(cardList) { card }
-            where RunFinder.IsRun(appendToEnd)
-            select new PlayAction(cardList, card)
-        );
+
+        //     availablePlays.AddRange(
+        //         from card in cards
+        //         from cardList in playZone
+        //         where cardList.GetType() == typeof(Run)
+        //         let appendToEnd = new Run(cardList) { card }
+        //         where RunFinder.IsRun(appendToEnd)
+        //         select new PlayAction(cardList, card)
+        //     );
+        // }
+
+        foreach (CardList runOrAtama in playZone)
+        {
+            if (runOrAtama.GetType() == typeof(Run))
+            {
+                availablePlays.AddRange(RecursiveRunAdder(
+                    new List<PlayAction>(),
+                    null,
+                    (Run)runOrAtama,
+                    cards
+                ));
+            }
+        }
+
+        // availablePlays.AddRange(
+        //     from cardList in playZone
+        //     where cardList.GetType() == typeof(Run)
+        //     from card in cards
+        //     let appendToEnd = new Run(cardList) { card }
+        //     where RunFinder.IsRun(appendToEnd)
+        //     select new PlayAction(cardList, card)
+        // );
+    }
+
+    private static List<PlayAction> RecursiveRunAdder(
+        List<PlayAction> playOptions,
+        PlayAction currentPlay,
+        Run baseRun,
+        CardList additionalCards
+    )
+    {
+        if (currentPlay == null)
+        {
+            currentPlay = new PlayAction(baseRun, new CardList());
+        }
+
+        if (additionalCards.Count == 0)
+        {
+            return playOptions;
+        }
+
+        foreach (Card card in additionalCards)
+        {
+            CardList remainingCards = new CardList(additionalCards);
+            Run appendToEnd = new Run(baseRun);
+
+            foreach (Card discoveredCard in currentPlay.CardsToAdd)
+            {
+                appendToEnd.Add(discoveredCard);
+            }
+
+            appendToEnd.Add(card);
+
+            if (RunFinder.IsRun(appendToEnd))
+            {
+                CardList playableCards = new CardList(currentPlay.CardsToAdd) { card };
+
+                currentPlay = new PlayAction(baseRun, playableCards);
+                playOptions.Add(currentPlay);
+                remainingCards.Remove(card);
+                return RecursiveRunAdder(playOptions, currentPlay, baseRun, remainingCards);
+            }
+        }
+
+        return playOptions;
     }
 }

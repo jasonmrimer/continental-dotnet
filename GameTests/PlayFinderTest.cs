@@ -45,11 +45,6 @@ public class PlayFinderTest
             new CardList { TestHelper.CardJaD, TestHelper.CardQuD, TestHelper.CardKiD }
         );
 
-        List<PlayAction> playActionsWithAtamaOnly = new List<PlayAction>()
-        {
-            playActionAtamaJack
-        };
-
 
         Dealer dealer = new Dealer();
         dealer.ReceiveDashita(TestHelper.Dashita02CTo05CAnd07DTo10DAndJacks);
@@ -70,6 +65,40 @@ public class PlayFinderTest
     }
 
     [Test]
+    public void Test_MultiCardAboveRun()
+    {
+        CardList hand = new CardList
+        {
+            TestHelper.Card06C, TestHelper.Card07C, TestHelper.Card08C
+        };
+        
+        PlayAction playActionRunPlusSix = new PlayAction(
+            TestHelper.Run02CTo05C, TestHelper.Card06C
+        );
+
+        PlayAction playActionRunPlusSixSeven = new PlayAction(
+            TestHelper.Run02CTo05C,
+            new CardList { TestHelper.Card06C, TestHelper.Card07C }
+        );
+
+        PlayAction playActionRunPlusSixSevenEight = new PlayAction(
+            TestHelper.Run02CTo05C,
+            new CardList { TestHelper.Card06C, TestHelper.Card07C, TestHelper.Card08C }
+        );
+
+
+        Dealer dealer = new Dealer();
+        dealer.ReceiveDashita(TestHelper.Dashita02CTo05CAnd07DTo10DAndJacks);
+
+        List<PlayAction> availablePlays = PlayFinder.AvailablePlaysV2(dealer.PlayZone, hand);
+
+        Assert.That(availablePlays, Has.Count.EqualTo(3));
+        Assert.That(availablePlays, Does.Contain(playActionRunPlusSix));
+        Assert.That(availablePlays, Does.Contain(playActionRunPlusSixSeven));
+        Assert.That(availablePlays, Does.Contain(playActionRunPlusSixSevenEight));
+    }
+
+    [Test]
     public void FindsAdditionalPlayAfterDashita_BelowRun()
     {
         CardList hand = new CardList() { TestHelper.Card06D };
@@ -81,9 +110,8 @@ public class PlayFinderTest
         // CardList availablePlays = PlayFinder.AvailablePlays(dealer.PlayZone, hand);
         // Assert.That(availablePlays, Has.Count.EqualTo(1));
         // Assert.That(availablePlays, Does.Contain(TestHelper.Card06D));
-        
-        
-        
+
+
         List<PlayAction> availablePlays = PlayFinder.AvailablePlaysV2(dealer.PlayZone, hand);
         Assert.That(availablePlays, Has.Count.EqualTo(1));
         Assert.That(availablePlays, Does.Contain(expectedAction));
@@ -129,7 +157,7 @@ public class PlayFinderTest
 
         Dealer dealer = new Dealer();
         dealer.ReceiveDashita(TestHelper.Dashita02CTo05CAnd07DTo10DAndJacks);
-        
+
         List<PlayAction> availablePlays = PlayFinder.AvailablePlaysV2(dealer.PlayZone, hand);
         Assert.That(availablePlays, Has.Count.EqualTo(2));
         Assert.That(availablePlays, Does.Contain(expectedAction01));
@@ -144,7 +172,7 @@ public class PlayFinderTest
 
         Dealer dealer = new Dealer();
         dealer.ReceiveDashita(TestHelper.Dashita02CTo05CAnd10DToKiDAndJacks);
-        
+
         List<PlayAction> availablePlays = PlayFinder.AvailablePlaysV2(dealer.PlayZone, hand);
         Assert.That(availablePlays, Has.Count.EqualTo(1));
         Assert.That(availablePlays, Does.Contain(expectedAction));

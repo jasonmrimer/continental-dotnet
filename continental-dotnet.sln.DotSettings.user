@@ -1,75 +1,52 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2597ac44_002D0816_002D4b44_002Dafaf_002D4b51dd910039/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest #9" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2f3730b0_002D9f2c_002D46f9_002Dbd70_002Dab7229d0ac55/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;And&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest&lt;/TestId&gt;
+      &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest.Test_CanCardBeAddedToRun&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.Test_PlayAtEndOfRun&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;Or&gt;
+      &lt;Test&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.Test_PlayAtEndOfRun&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlaysAfterDashita_MultiCardAboveRunAndAtama&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlayAfterDashita_BelowRun&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlayAfterDashita_TopOfRun&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlayAfterDashita_BottomOfRun&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlayAfterDashita_AboveAndBelowRun&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlayAfterDashita_AddToAtama&lt;/TestId&gt;
+        &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.Test_MultiCardAboveRun&lt;/TestId&gt;
+      &lt;/Test&gt;
+      &lt;Nothing /&gt;
+      &lt;Nothing /&gt;
+    &lt;/Or&gt;
+  &lt;/And&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=39eda231_002Dbfd9_002D40c0_002D9322_002Ddf6b947eb874/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest #7" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3e5a6457_002D6385_002D451c_002Db292_002D778ede852aa7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=84dfec50_002D307b_002D4243_002D922a_002Dc83c1aefac04/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=889191e5_002D9367_002D4fa3_002Db36f_002D3377e9486f1b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8c5b01b3_002D533f_002D48ce_002Dbbaa_002D36ac15f98146/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PlayFinderTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8c5b01b3_002D533f_002D48ce_002Dbbaa_002D36ac15f98146/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PlayFinderTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest.Test_CanCardBeAddedToRun&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a3e0063a_002D696b_002D4803_002D84c6_002D7d92f6f53fa4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RunFinderTest #10" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a848651a_002Da74e_002D489b_002D9463_002D37525e6ca9ce/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;And&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::PlayFinderTest.FindsAdditionalPlaysAfterDashita_MultiCardAboveRunAndAtama&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-  &lt;/And&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c9d1739f_002Dff53_002D4300_002D9f32_002D4f08d008c714/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d06fb07d_002D0437_002D4c02_002Da2fc_002D0a5698bc7ccb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d7a33f1b_002D0181_002D4838_002D8f6c_002Db23649367753/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test_FindAdditionLocation" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest.Test_FindAdditionLocation&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=de97a826_002D44ea_002D48fd_002Dab8e_002D0f831a6619cf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e5f84146_002D6eb8_002D497c_002Db9d3_002Dcdd0860c2829/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest #6" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=efefa79a_002D681c_002D48ee_002D82cb_002Dbac00ceef96c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RunFinderTest #8" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::06431FBA-0F85-4E5D-9AD3-A30931E93E36::net7.0::RunFinderTest&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+	
+	</wpf:ResourceDictionary>

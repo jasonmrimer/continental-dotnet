@@ -6,8 +6,8 @@ public enum RunLocation
 {
     START,
     END,
+    START_OR_END,
     NONE,
-    START_OR_END
 }
 
 public abstract class RunFinder
@@ -114,13 +114,9 @@ public abstract class RunFinder
 
     public static bool CanAddToRun(Run run, Card card)
     {
-        Run runAddAbove = new Run(run) { card };
-        Run runAddBelow = new Run(run);
-        runAddBelow.Insert(0, card);
-
-        return IsRun(runAddAbove) || IsRun(runAddBelow);
+        return FindAdditionLocation(run, card) != RunLocation.NONE;
     }
-    
+
     public static RunLocation FindAdditionLocation(Run run, Card card)
     {
         Run runAddToEnd = new Run(run) { card };
@@ -131,7 +127,7 @@ public abstract class RunFinder
         {
             return RunLocation.START_OR_END;
         }
-        
+
         if (IsRun(runAddToStart))
         {
             return RunLocation.START;
@@ -148,12 +144,13 @@ public abstract class RunFinder
     public static Run AddCardsToRun(Run startingRun, CardList cardsToAdd)
     {
         Run endingRun = new Run(startingRun);
-        
-        while (cardsToAdd.Count > 0)
+        CardList remainingCards = new CardList(cardsToAdd);
+
+        while (remainingCards.Count > 0)
         {
             CardList cardsToRemove = new();
-            
-            foreach (Card card in cardsToAdd)
+
+            foreach (Card card in remainingCards)
             {
                 RunLocation location = FindAdditionLocation(endingRun, card);
 
@@ -167,18 +164,35 @@ public abstract class RunFinder
                         endingRun.Add(card);
                         cardsToRemove.Add(card);
                         break;
+                    case RunLocation.START_OR_END:
+                        endingRun.Insert(0, card);
+                        cardsToRemove.Add(card);
+                        break;
+                    case RunLocation.NONE:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
-            if (cardsToRemove.Count == 0)
+            if (CannotAddMoreCardsToRun())
             {
                 break;
             }
-            
-            cardsToAdd.RemoveRange(cardsToRemove);
+
+            remainingCards.RemoveRange(cardsToRemove);
+
+            bool CannotAddMoreCardsToRun()
+            {
+                return cardsToRemove.Count == 0;
+            }
         }
 
         return endingRun;
     }
-    
+
+    public static Run AddCardToRun(Run run, Card card)
+    {
+        return AddCardsToRun(run, new CardList { card });
+    }
 }

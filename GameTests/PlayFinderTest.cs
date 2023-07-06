@@ -107,12 +107,10 @@ public class PlayFinderTest
         Dealer dealer = new Dealer();
         dealer.ReceiveDashita(TestHelper.Dashita02CTo05CAnd07DTo10DAndJacks);
 
-        // CardList availablePlays = PlayFinder.AvailablePlays(dealer.PlayZone, hand);
-        // Assert.That(availablePlays, Has.Count.EqualTo(1));
-        // Assert.That(availablePlays, Does.Contain(TestHelper.Card06D));
-
-
         List<PlayAction> availablePlays = PlayFinder.AvailablePlaysV2(dealer.PlayZone, hand);
+        Console.Out.WriteLine(availablePlays[0]);
+        Console.Out.WriteLine(availablePlays[1]);
+        
         Assert.That(availablePlays, Has.Count.EqualTo(1));
         Assert.That(availablePlays, Does.Contain(expectedAction));
     }

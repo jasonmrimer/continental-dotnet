@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 [TestFixture]
 public class RunFinderTest
@@ -308,10 +309,84 @@ public class RunFinderTest
         Assert.That(RunFinder.IsRun(runBelowValid), Is.True);
         Assert.That(RunFinder.IsRun(runBelowNotValid), Is.False);
     }
-    
+
     [Test]
-    public void Test_CanAddCardAboveRun()
+    public void Test_CanCardBeAddedToRun()
     {
-        // todo 
+        // todo add Ace double case with above and below (2 to K run) 
+        Assert.That(
+            RunFinder.CanAddToRun(TestHelper.Run07DTo10D, TestHelper.Card06D),
+            Is.True
+        );
+
+        Assert.That(
+            RunFinder.CanAddToRun(TestHelper.Run07DTo10D, TestHelper.Card06C),
+            Is.False
+        );
+
+        Assert.That(
+            RunFinder.CanAddToRun(TestHelper.Run07DTo10D, TestHelper.Card06C),
+            Is.False
+        );
+    }
+
+    [Test]
+    public void Test_FindAdditionLocation()
+    {
+        Assert.That(
+            RunFinder.FindAdditionLocation(TestHelper.Run07DTo10D, TestHelper.Card06D),
+            Is.EqualTo(RunLocation.START)
+        );
+
+        Assert.That(
+            RunFinder.FindAdditionLocation(TestHelper.Run07DTo10D, TestHelper.CardJaD),
+            Is.EqualTo(RunLocation.END)
+        );
+
+        Assert.That(
+            RunFinder.FindAdditionLocation(TestHelper.Run07DTo10D, TestHelper.CardQuD),
+            Is.EqualTo(RunLocation.NONE)
+        );
+
+        Assert.That(
+            RunFinder.FindAdditionLocation(TestHelper.Run02DToKiD, TestHelper.CardAcC),
+            Is.EqualTo(RunLocation.NONE)
+        );
+
+        Assert.That(
+            RunFinder.FindAdditionLocation(TestHelper.Run02DToKiD, TestHelper.CardAcD),
+            Is.EqualTo(RunLocation.START_OR_END)
+        );
+    }
+
+    [Test]
+    public void Test_AddCardsToRun()
+    {
+        CardList cardsToAdd = new CardList()
+        {
+            TestHelper.Card06D,
+            TestHelper.CardJaD,
+            TestHelper.CardQuD,
+        };
+
+        Assert.That(
+            RunFinder.AddCardsToRun(TestHelper.Run07DTo10D, cardsToAdd),
+            Is.EqualTo(TestHelper.Run06DToQuD));
+    }
+
+    [Test]
+    public void Test_AddCardsToRunWithNonAdditionCards()
+    {
+        CardList cardsToAdd = new CardList()
+        {
+            TestHelper.Card06D,
+            TestHelper.CardJaD,
+            TestHelper.Card06C,
+        };
+
+        Assert.That(
+            RunFinder.AddCardsToRun(TestHelper.Run07DTo10D, cardsToAdd),
+            Is.EqualTo(TestHelper.Run06DToJaD)
+        );
     }
 }

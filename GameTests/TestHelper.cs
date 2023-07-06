@@ -11,6 +11,10 @@ public static class TestHelper
     public static Card Card07C = new(Rank.Seven, Suit.Clubs);
     public static Card Card08C = new(Rank.Eight, Suit.Clubs);
     public static Card CardAcD = new(Rank.Ace, Suit.Diamonds);
+    public static Card Card02D = new(Rank.Two, Suit.Diamonds);
+    public static Card Card03D = new(Rank.Three, Suit.Diamonds);
+    public static Card Card04D = new(Rank.Four, Suit.Diamonds);
+    public static Card Card05D = new(Rank.Five, Suit.Diamonds);
     public static Card Card06D = new(Rank.Six, Suit.Diamonds);
     public static Card Card07D = new(Rank.Seven, Suit.Diamonds);
     public static Card Card08D = new(Rank.Eight, Suit.Diamonds);
@@ -37,6 +41,14 @@ public static class TestHelper
 
     public static Run Run02CTo05C => new() { Card02C, Card03C, Card04C, Card05C };
     public static Run Run07DTo10D => new() { Card07D, Card08D, Card09D, Card10D, };
+    public static Run Run06DToJaD => new() { Card06D, Card07D, Card08D, Card09D, Card10D, CardJaD };
+    public static Run Run06DToQuD => new() { Card06D, Card07D, Card08D, Card09D, Card10D, CardJaD, CardQuD };
+    public static Run Run02DToKiD => new()
+    {
+        Card02D, Card03D, Card04D, Card05D, 
+        Card06D, Card07D, Card08D, Card09D, 
+        Card10D, CardJaD, CardQuD, CardKiD
+    };
     public static Run Run10DToKiD => new() { Card10D, CardJaD, CardQuD, CardKiD };
     public static Run Run08HtoJaH => new() { Card08H, Card09H, Card10H, CardJaH1 };
     public static Atama AtamaJacksHHS => new() { CardJaH1, CardJaH2, CardJaS, };

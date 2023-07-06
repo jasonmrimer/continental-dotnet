@@ -2,17 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+public enum RunLocation
+{
+    START,
+    END,
+    NONE,
+    START_OR_END
+}
+
 public abstract class RunFinder
 {
     public static List<Run> FindPossibleRuns(CardList cards)
     {
         List<Run> runOptions = new();
-        IEnumerable<IGrouping<Suit,Card>> suitGroups = cards.GroupBy(card => card.Suit);
+        IEnumerable<IGrouping<Suit, Card>> suitGroups = cards.GroupBy(card => card.Suit);
 
         foreach (IGrouping<Suit, Card> suitGroup in suitGroups)
         {
             HashSet<Card> singleCopySuitedCards = new(suitGroup);
-            
+
             foreach (Card runStartCard in singleCopySuitedCards)
             {
                 Run run = new() { runStartCard };
@@ -38,7 +46,7 @@ public abstract class RunFinder
                 }
             }
         }
-        
+
         return runOptions;
     }
 
@@ -102,4 +110,75 @@ public abstract class RunFinder
         Suit firstSuit = cards[0].Suit;
         return cards.All(card => card.Suit == firstSuit);
     }
+
+
+    public static bool CanAddToRun(Run run, Card card)
+    {
+        Run runAddAbove = new Run(run) { card };
+        Run runAddBelow = new Run(run);
+        runAddBelow.Insert(0, card);
+
+        return IsRun(runAddAbove) || IsRun(runAddBelow);
+    }
+    
+    public static RunLocation FindAdditionLocation(Run run, Card card)
+    {
+        Run runAddToEnd = new Run(run) { card };
+        Run runAddToStart = new Run(run);
+        runAddToStart.Insert(0, card);
+
+        if (IsRun(runAddToStart) && IsRun(runAddToEnd))
+        {
+            return RunLocation.START_OR_END;
+        }
+        
+        if (IsRun(runAddToStart))
+        {
+            return RunLocation.START;
+        }
+
+        if (IsRun(runAddToEnd))
+        {
+            return RunLocation.END;
+        }
+
+        return RunLocation.NONE;
+    }
+
+    public static Run AddCardsToRun(Run startingRun, CardList cardsToAdd)
+    {
+        Run endingRun = new Run(startingRun);
+        
+        while (cardsToAdd.Count > 0)
+        {
+            CardList cardsToRemove = new();
+            
+            foreach (Card card in cardsToAdd)
+            {
+                RunLocation location = FindAdditionLocation(endingRun, card);
+
+                switch (location)
+                {
+                    case RunLocation.START:
+                        endingRun.Insert(0, card);
+                        cardsToRemove.Add(card);
+                        break;
+                    case RunLocation.END:
+                        endingRun.Add(card);
+                        cardsToRemove.Add(card);
+                        break;
+                }
+            }
+
+            if (cardsToRemove.Count == 0)
+            {
+                break;
+            }
+            
+            cardsToAdd.RemoveRange(cardsToRemove);
+        }
+
+        return endingRun;
+    }
+    
 }

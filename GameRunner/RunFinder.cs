@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 public enum RunLocation
 {
-    START,
-    END,
-    START_OR_END,
-    NONE,
+    Start,
+    End,
+    StartOrEnd,
+    None,
 }
 
 public abstract class RunFinder
@@ -28,7 +24,7 @@ public abstract class RunFinder
                 for (int nextRankInt = (int)(runStartCard.Rank + 1); nextRankInt <= 14; nextRankInt++)
                 {
                     Rank nextRank = nextRankInt == 14 ? Rank.Ace : (Rank)nextRankInt;
-                    Card nextCardInRun = new Card(nextRank, runStartCard.Suit);
+                    Card nextCardInRun = new(nextRank, runStartCard.Suit);
 
                     if (singleCopySuitedCards.TryGetValue(nextCardInRun, out nextCardInRun))
                     {
@@ -57,7 +53,7 @@ public abstract class RunFinder
             return false;
         }
 
-        if (!CardsAreSameRank(cards))
+        if (!CardsAreSameSuit(cards))
         {
             return false;
         }
@@ -105,7 +101,7 @@ public abstract class RunFinder
         return true;
     }
 
-    private static bool CardsAreSameRank(CardList cards)
+    private static bool CardsAreSameSuit(CardList cards)
     {
         Suit firstSuit = cards[0].Suit;
         return cards.All(card => card.Suit == firstSuit);
@@ -114,7 +110,7 @@ public abstract class RunFinder
 
     public static bool CanAddToRun(Run run, Card card)
     {
-        return FindAdditionLocation(run, card) != RunLocation.NONE;
+        return FindAdditionLocation(run, card) != RunLocation.None;
     }
 
     public static RunLocation FindAdditionLocation(Run run, Card card)
@@ -125,20 +121,20 @@ public abstract class RunFinder
 
         if (IsRun(runAddToStart) && IsRun(runAddToEnd))
         {
-            return RunLocation.START_OR_END;
+            return RunLocation.StartOrEnd;
         }
 
         if (IsRun(runAddToStart))
         {
-            return RunLocation.START;
+            return RunLocation.Start;
         }
 
         if (IsRun(runAddToEnd))
         {
-            return RunLocation.END;
+            return RunLocation.End;
         }
 
-        return RunLocation.NONE;
+        return RunLocation.None;
     }
 
     public static Run AddCardsToRun(Run startingRun, CardList cardsToAdd)
@@ -156,19 +152,19 @@ public abstract class RunFinder
 
                 switch (location)
                 {
-                    case RunLocation.START:
+                    case RunLocation.Start:
                         endingRun.Insert(0, card);
                         cardsToRemove.Add(card);
                         break;
-                    case RunLocation.END:
+                    case RunLocation.End:
                         endingRun.Add(card);
                         cardsToRemove.Add(card);
                         break;
-                    case RunLocation.START_OR_END:
+                    case RunLocation.StartOrEnd:
                         endingRun.Insert(0, card);
                         cardsToRemove.Add(card);
                         break;
-                    case RunLocation.NONE:
+                    case RunLocation.None:
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

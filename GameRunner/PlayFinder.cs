@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace GameRunner;
 
 public static class PlayFinder
@@ -9,38 +11,29 @@ public static class PlayFinder
     {
         List<PlayAction> availablePlays = new();
 
-        AddCardsToRun(playZone, cards, availablePlays);
+        AddCardsToExistingRuns(playZone, cards, availablePlays);
 
-        AddCardsToAtama(playZone, cards, availablePlays);
+        AddCardsToExistingAtamas(playZone, cards, availablePlays);
 
         return availablePlays;
     }
 
-    private static void AddCardsToAtama(
-        List<CardList> playZone,
+    private static void AddCardsToExistingAtamas(
+        IReadOnlyCollection<CardList> playZone,
         CardList cards,
         List<PlayAction> availablePlays)
     {
-        foreach (Card card in cards)
-        {
-            foreach (CardList playedList in playZone)
-            {
-                if (playedList.GetType() != typeof(Atama)) continue;
-                Atama addToAtama = new Atama(playedList) { card };
-                if (AtamaFinder.IsAtama(addToAtama))
-                {
-                    availablePlays.Add(
-                        new PlayAction(
-                            playedList,
-                            card
-                        )
-                    );
-                }
-            }
-        }
+        availablePlays.AddRange(
+            from card in cards
+            from playedList in playZone
+            where playedList.GetType() == typeof(Atama)
+            let addToAtama = new Atama(playedList) { card }
+            where AtamaFinder.IsAtama(addToAtama)
+            select new PlayAction(playedList, card)
+        );
     }
 
-    private static void AddCardsToRun(
+    private static void AddCardsToExistingRuns(
         List<CardList> playZone,
         CardList cards,
         List<PlayAction> availablePlays)
@@ -58,7 +51,7 @@ public static class PlayFinder
         }
     }
 
-    private static List<Run> SelectRunsFromPlayZone(List<CardList> playZone)
+    private static List<Run> SelectRunsFromPlayZone(IEnumerable<CardList> playZone)
     {
         return playZone.Where(runOrAtama =>
             runOrAtama.GetType() == typeof(Run)).Cast<Run>().ToList();
@@ -84,7 +77,7 @@ public static class PlayFinder
 
             Run potentialRun = RunFinder.AddCardToRun(currentRun, card);
 
-            if (cardNotAddedToRun(potentialRun, currentRun)) continue;
+            if (CardNotAddedToRun(potentialRun, currentRun)) continue;
 
             CardList playableCards = new CardList(currentPlay.CardsToAdd) { card };
 
@@ -97,7 +90,7 @@ public static class PlayFinder
         return playOptions;
     }
 
-    private static bool cardNotAddedToRun(Run potentialRun, Run currentRun)
+    private static bool CardNotAddedToRun(IEnumerable potentialRun, IEnumerable currentRun)
     {
         return potentialRun.Equals(currentRun);
     }

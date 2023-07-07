@@ -4,7 +4,7 @@ using GameRunner;
 public class PlayFinderTest
 {
     [Test]
-    public void PlayAtEndOfRun()
+    public void SinglePlayToRunAtEnd()
     {
         CardList hand = new CardList() { TestHelper.Card06C };
 
@@ -20,7 +20,7 @@ public class PlayFinderTest
 
 
     [Test]
-    public void FindsAdditionalPlaysAfterDashita_MultiCardAboveRunAndAtama()
+    public void MultiplePlaysToRunAtEndAndToAtama()
     {
         CardList hand = new CardList
         {
@@ -50,12 +50,6 @@ public class PlayFinderTest
         dealer.ReceiveDashita(TestHelper.Dashita02CTo05CAnd07DTo10DAndJacks);
 
         List<PlayAction> availablePlays = PlayFinder.FindPlays(dealer.PlayZone, hand);
-        /*
-         * jack to atama only
-         * jack to run
-         * jack queen to run
-         * jack king to run
-         */
 
         Assert.That(availablePlays, Does.Contain(playActionAtamaJack));
         Assert.That(availablePlays, Does.Contain(playActionRunJack));
@@ -65,7 +59,7 @@ public class PlayFinderTest
     }
 
     [Test]
-    public void MultiCardAtEndOfRun()
+    public void MultiplePlaysToRunAtEnd()
     {
         CardList hand = new CardList
         {
@@ -99,7 +93,7 @@ public class PlayFinderTest
     }
 
     [Test]
-    public void FindsPlayAtStartOfRun()
+    public void SinglePlayToRunAtStart()
     {
         CardList hand = new CardList() { TestHelper.Card06D };
         PlayAction expectedAction = new PlayAction(TestHelper.Run07DTo10D, TestHelper.Card06D);
@@ -114,7 +108,7 @@ public class PlayFinderTest
     }
 
     [Test]
-    public void FindsPlayAtEndOfRunAce()
+    public void SinglePlayToRunAtEndWithAce()
     {
         CardList hand = new CardList { TestHelper.CardAcD };
         PlayAction expectedAction = new PlayAction(TestHelper.Run10DToKiD, TestHelper.CardAcD);
@@ -128,7 +122,7 @@ public class PlayFinderTest
     }
 
     [Test]
-    public void FindsAdditionalPlayAfterDashita_BottomOfRun()
+    public void SinglePlayToRunAtStartWithAce()
     {
         CardList hand = new CardList { TestHelper.CardAcC };
         PlayAction expectedAction = new PlayAction(TestHelper.Run02CTo05C, TestHelper.CardAcC);
@@ -142,7 +136,7 @@ public class PlayFinderTest
     }
 
     [Test]
-    public void FindsPlayAtStartAndEndOfRun()
+    public void SeparatePlaysToRunAtStartAndToRunAtEnd()
     {
         CardList hand = new CardList
         {
@@ -161,7 +155,7 @@ public class PlayFinderTest
     }
 
     [Test]
-    public void FindsAdditionalPlayAfterDashita_AddToAtama()
+    public void SinglePlayToAtama()
     {
         CardList hand = new CardList { TestHelper.CardJaD };
         PlayAction expectedAction = new PlayAction(TestHelper.AtamaJacksHHS, TestHelper.CardJaD);
